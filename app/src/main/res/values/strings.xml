@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaskPlanner</string>
+    <string name="important_task">Important Task</string>
 </resources>
