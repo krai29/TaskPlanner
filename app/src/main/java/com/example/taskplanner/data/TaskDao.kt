@@ -1,7 +1,6 @@
 package com.example.taskplanner.data
 
 import androidx.room.*
-import com.example.taskplanner.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
