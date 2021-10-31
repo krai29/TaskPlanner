@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TaskPlanner</string>
     <string name="important_task">Important Task</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="hide_completed">Hide completed</string>
+    <string name="deleted_all_completed_tasks">Delete all completed tasks</string>
 </resources>
