@@ -28,4 +28,8 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/deleteAllCompletedTasksDialogFragment"
+        android:name="com.example.taskplanner.ui.deleteallcompletedtask.DeleteAllCompletedTasksDialogFragment"
+        android:label="DeleteAllCompletedTasksDialogFragment" /><action android:id="@+id/action_global_deleteAllCompletedTasksDialogFragment" app:destination="@id/deleteAllCompletedTasksDialogFragment"/>
 </navigation>

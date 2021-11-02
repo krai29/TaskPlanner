@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 class TaskFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickListener {
 
     private val viewModel : TasksViewModel by viewModels()
+    private lateinit var searchView : SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,6 +94,10 @@ class TaskFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickL
                     is TasksViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
                         Snackbar.make(requireView(),event.message,Snackbar.LENGTH_SHORT).show()
                     }
+                    is TasksViewModel.TasksEvent.NavigateToDeleteAllCompletedScreen -> {
+                        val action = TaskFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
+                        findNavController().navigate(action)
+                    }
                 }.exhaustive
             }
         }
@@ -103,7 +108,13 @@ class TaskFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickL
         inflater.inflate(R.menu.menu_fragment_tasks,menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
+
+        val pendingQuery = viewModel.searchQuery.value
+        if (pendingQuery!=null && pendingQuery.isNotEmpty()){
+            searchItem.expandActionView()
+            searchView.setQuery(pendingQuery,false)
+        }
 
         searchView.onQueryTextChanged {
             // update search query
@@ -130,6 +141,7 @@ class TaskFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickL
                 true
             }
             R.id.action_delete_all_completed_tasks -> {
+                viewModel.onDeleteAllCompletedClick()
                 true
             }
             R.id.action_hide_completed_tasks -> {
@@ -149,5 +161,10 @@ class TaskFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickL
 
     override fun onCheckBoxClicked(task: Task, isChecked: Boolean) {
         viewModel.onTaskCheckedChanged(task,isChecked)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        searchView.setOnQueryTextListener(null)
     }
 }
