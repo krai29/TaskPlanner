@@ -3,6 +3,7 @@
     package="com.example.taskplanner">
 
     <application
+        android:name=".TaskPlannerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskPlanner">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.TaskActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
